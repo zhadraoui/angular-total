@@ -48,10 +48,10 @@ public class TransferService {
     }
 
     @Transactional
-    public void transferWithNestedBonus(String from, String to, double amount) {
+    public void transferWithRequiresNewBonus(String from, String to, double amount) {
         withdraw(from, amount);
         deposit(to, amount);
-        bonusService.applyBonusWithNested(to);
+        bonusService.applyBonusWithRequiresNew(to);
     }
 
     private void withdraw(String owner, double amount) {

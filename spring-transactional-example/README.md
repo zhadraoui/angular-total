@@ -4,7 +4,7 @@ Ce module Maven démontre la plupart des cas d'usage autour de `@Transactional` 
 
 - **Propagation `REQUIRED`** pour une opération métier classique (`transferRequired`).
 - **`REQUIRES_NEW`** pour écrire un audit indépendant de la transaction principale (`AuditService`).
-- **`NESTED`** avec savepoint pour récompenser un client tout en conservant la transaction extérieure (`BonusService`).
+- **`REQUIRES_NEW`** pour accorder un bonus dans une transaction indépendante qui peut être annulée (`BonusService`).
 - **`SUPPORTS` + `readOnly=true`** pour des lectures optimisées (`ReportingService`).
 - **`NOT_SUPPORTED`** pour exécuter un traitement hors transaction (`NonTransactionalService`).
 - **Timeout & règles de rollback personnalisées** via `@Transactional(timeout = 1, rollbackFor = TimeoutException.class)`.

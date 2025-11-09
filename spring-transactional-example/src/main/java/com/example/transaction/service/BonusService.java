@@ -20,14 +20,14 @@ public class BonusService {
         this.accountRepository = accountRepository;
     }
 
-    @Transactional(propagation = Propagation.NESTED)
-    public void applyBonusWithNested(String owner) {
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void applyBonusWithRequiresNew(String owner) {
         Account account = accountRepository.findByOwner(owner)
                 .orElseThrow(() -> new IllegalArgumentException("Account not found: " + owner));
         account.setBalance(account.getBalance() + 5);
-        log.info("Bonus applied to {} (balance: {})", owner, account.getBalance());
+        log.info("Bonus applied in separate transaction to {} (balance: {})", owner, account.getBalance());
         if (owner.startsWith("B")) {
-            throw new IllegalStateException("Simulated failure for nested transaction");
+            throw new IllegalStateException("Simulated failure for REQUIRES_NEW bonus");
         }
     }
 }

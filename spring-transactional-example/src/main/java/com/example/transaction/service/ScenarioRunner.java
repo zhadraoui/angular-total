@@ -37,11 +37,11 @@ public class ScenarioRunner {
         log.info("=== REQUIRES_NEW for audit ===");
         transferService.transferWithAudit("Alice", "Bob", 10);
 
-        log.info("=== NESTED with savepoints ===");
+        log.info("=== REQUIRES_NEW bonus with independent rollback ===");
         try {
-            transferService.transferWithNestedBonus("Alice", "Bob", 15);
+            transferService.transferWithRequiresNewBonus("Alice", "Bob", 15);
         } catch (Exception ex) {
-            log.warn("Nested transfer rolled back, outer transaction committed", ex);
+            log.warn("Bonus rolled back but outer transfer committed", ex);
         }
 
         log.info("=== SUPPORTS read-only reporting ===");
